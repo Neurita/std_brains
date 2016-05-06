@@ -1,0 +1,155 @@
+DEFINING REGIONS USING THE HAMMERS_MITH ATLAS n30r83 AND SPM5
+
+_____________________________________________________________
+PREPARE
+
+Have in directory: 
+Hammers_mith_atlas_n30r83_SPM5.hdr Hammers_mith_atlas_n30r83_SPM5.img
+T1 MRI img/hdr
+
+NB: AG data from DICOM may have bizarre origin - this seems to occur when AVW
+treated and is NOT a problem when Output min/max have been set in AVW 6.1 
+in London.
+_____________________________________________________________
+SEGMENT
+
+matlab6.5 -nojvm
+
+spm5
+
+SEGMENT
+***Data: T1***
+Output files:
+	Grey matter - native
+	White matter - native
+	***Cerebro-Spinal Fluid - native***
+	Bias Corrected - save
+Custom (all remain default):
+	Tissue probability maps - .../spm5/tpm/grey / white / csf.nii
+	[these ARE ~compatible with MNI152, i.e. asymmetrical, in contrast
+	to the ones in SPM5b]
+	Gaussians per class - 2 2 2 4
+	Affine Regularisation - ICBM space template - European brains
+	Warping Regularisation - 1
+	Warp Frequency Cutoff - 25
+	Bias regularisation - very light regularisation (0.0001)
+	Bias FWHM - 60mm cutoff
+	Sampling distance - 3
+Save
+segment????.mat
+Run
+
+Result: 
+mT1 (bias corrected; in float; huge ~60MB)
+c1 (GM)
+c2 (WM)
+c3 (CSF)
+T1_seg_sn.mat (transformation file (spatial normalisation) from T1 to MNI
+T1_seg_inv_sn.mat (transformation file from MNI to T1)
+NOTE no normalised files are written at this stage.
+_____________________________________________________________
+WRITE ATLAS IN INDIVIDUAL MRI SPACE
+
+NORMALIZE
+New "Normalise:Write"
+Normalise:Write
+	Data
+		New"Subject"
+		Subject
+			Parameter file - T1_seg_inv_sn.mat
+			Images to Write - Hammers_mith_atlas_n30r83_SPM5.img
+		Writing Options
+			Preserve - preserve concentrations
+			Bounding box - ***-NaN -NaN -NaN; NaN NaN NaN;***
+			Voxel sizes - ***NaN NaN NaN***
+			Interpolation - ***Nearest Neighbour***
+			Wrapping - No Wrap
+Save 
+writeinv????.mat
+Run
+
+Result:
+wHammers_mith_atlas_n30r83_SPM5.*
+_____________________________________________________________
+CHECK REGISTRATION
+
+CHECK REG
+T1*
+wH*
+
+_____________________________________________________________
+CREATE OBJECT MAP AND SAMPLE
+
+In Analyze AVW 6.1,
+LOAD AS
+wHammers_mith_atlas_n30r83_SPM5
+Calculate max/min
+[should then be 0 / 83]
+LOAD
+
+SAVE AS
+Set Format to "OBJMAP"
+SAVE
+
+LOAD AS
+- whichever image in MRI space is to be sampled -
+LOAD
+
+ROI
+LOAD object map:
+wHammers_mith_atlas_n30r83_SPM5.obj
+Format incompatibility - Resize with Nearest Neighbour
+[does not seem to be a problem, i.e. Analyze seems to take away just the planes that SPM5 added]
+
+_____________________________________________________________
+COREGISTER PET TO MRI
+
+In SPM5:
+
+COREGISTER
+New "Coreg: Estimate & Reslice"
+	Coreg: Estimate & Reslice
+		***Reference Image - T1.img
+		***Source Image - PETadd.img
+		***Other Images - PETparametricmap.img
+		Estimation Options
+			Objective Function - Normalised Mutual Information
+			Separation - 4 2
+			Tolerences [sic] - 0.02 [x3] 0.001 [x3] 
+					0.01 [x3] 0.001 [x3]
+			Histogram Smoothing - 7 7
+		Reslice Options
+			Interpolation - Trilinear
+			Wrapping - No wrap
+			Masking - Dont [sic] mask images
+SAVE
+coregPET2T1.mat
+RUN
+
+Result:
+rPET*
+********CAVE: THE PROCEDURE ALSO CHANGES THE HDR OF THE ORIGINAL PET - MAKE SURE TO MAKE A COPY BEFOREHAND IF NECESSARY********
+
+_____________________________________________________________
+MAKE ADD IMAGE
+
+matlab6 -nojvm
+
+rpm
+
+SPECTRAL ANALYSIS
+
+Weights
+
+choose *sif file
+
+weights will usually be smooth
+output: *.idwc
+
+Add Image
+
+choose dynamic image
+choose *idwc file
+Frame 1 to 34 	(0 to 90 mins)
+Frame 26 to 34	(30 to 90 mins)
+
