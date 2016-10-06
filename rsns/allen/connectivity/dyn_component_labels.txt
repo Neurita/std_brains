@@ -1,0 +1,52 @@
+Component No		Name    
+  		
+57          		Caudate   		
+ 8          		Putamen   		
+13          		Putamen   		
+15          		Thalamus  		
+99          		STG       		
+98          		STG       		
+ 2          		PreCG     		
+10          		R PoCG    		
+14          		L PoCG    		
+58          		SMA       		
+37          		ParaCL    		
+45          		PoCG      		
+30          		ParaCL    		
+ 9          		SPL       		
+77          		MTG       		
+79          		LingualG  		
+60          		Cuneus    		
+46          		CalcarineG		
+27          		Cuneus    		
+43          		FFG       		
+82          		R MOG     		
+89          		L MOG     		
+80          		MOG       		
+61          		SOG       		
+67          		R IPL     		
+93          		ITG       		
+56          		PreCG     		
+90          		MCC       		
+71          		pInsula   		
+76          		L IPL     		
+47          		MiGF      		
+88          		IFG       		
+21          		aInsula   		
+59          		IPL       		
+36          		MiFG      		
+29          		RSN SMA   		
+66          		R STG+IFG 		
+81          		PHG       		
+20          		Precuneus 		
+44          		Precuneus 		
+39          		PCC       		
+28          		PCC       		
+64          		R AG      		
+26          		ACC       		
+75          		L AG      		
+48          		MiFG+SFG  		
+87          		L MTG+IFG 		
+12          		R CB      		
+ 7          		L CB      		
+32          		CB        		

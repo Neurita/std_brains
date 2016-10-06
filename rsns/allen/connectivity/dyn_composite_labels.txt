@@ -1,0 +1,8 @@
+1. Sub-cortical
+2. Auditory
+3. Somatomotor
+4. Visual
+5. Cognitive-control
+6. Default-mode
+7. Cerebellar
+

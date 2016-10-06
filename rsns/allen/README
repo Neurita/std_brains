@@ -1,0 +1,25 @@
+
+Resting State Data
+------------------
+
+- Resting state data from paper E. Allen, et al, "A baseline for the multivariate comparison of resting state networks," Frontiers in Systems Neuroscience, vol. 5, p. 12, 2011.
+http://journal.frontiersin.org/article/10.3389/fnsys.2011.00002/full#F4
+    - T-maps of all 75 components
+    - T-maps of 28 resting state networks included in E. Allen et al.
+    - Aggregate ICA Components
+
+- Resting state from paper E. Allen, E. Damaraju, S. M. Plis, E. Erhardt, T. Eichele, and V. D.Calhoun, "Tracking whole-brain connectivity dynamics in the resting state", Cereb Cortex, Nov 2012.	
+    - Aggregate ICA components
+    - T-maps of all 100 components. Please see resting state networks file for component labels.
+    - Composite t-maps of 7 groups resampled to 1mm^3 space and their labels.
+
+- Mean group ICA components from paper M. Stevens, V. D. Calhoun, G. D. Pearlson, and K. A. Kiehl, "Brain network dynamics during error commission," Hum.Brain Map., vol. 30, pp. 24-37, 2009.
+
+Notes
+-----
+Keep in mind that the label files start to count from 1.
+
+References
+----------
+http://mialab.mrn.org/data/index.html
+
